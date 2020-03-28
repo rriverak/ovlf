@@ -41,7 +41,7 @@
 						</p>
 						<p>
 							<label>Session</label>
-							<input class="form-control" readonly="readonly" type="text" name="sessionname" required="true"></input>
+							<input class="form-control" type="text" name="sessionname" required="true"></input>
 						</p>
 						<p class="text-center">
 							<button class="btn btn-lg btn-success" type="submit">Join!</button>
@@ -69,7 +69,7 @@
 
 <script>
 	window.onload = function () { // Generate participant info
-		$("input[name='sessionname']").val("Training Session");
+		$("input[name='sessionname']").val("Training Session " + Date.now());
 		$("input[name='data']").val("<%= name %>");
 	}
 </script>
