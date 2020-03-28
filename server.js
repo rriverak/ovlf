@@ -44,17 +44,17 @@ https.createServer(options, app).listen(5000);
 
 // Mock database
 var users = [{
-    user: "publisher1",
+    user: "xpert",
+    pass: "pass",
+    role: OpenViduRole.MODERATOR
+}, {
+    user: "customer1",
     pass: "pass",
     role: OpenViduRole.PUBLISHER
 }, {
-    user: "publisher2",
+    user: "customer2",
     pass: "pass",
     role: OpenViduRole.PUBLISHER
-}, {
-    user: "subscriber",
-    pass: "pass",
-    role: OpenViduRole.SUBSCRIBER
 }];
 
 // Environment variable: URL where our OpenVidu server is listening

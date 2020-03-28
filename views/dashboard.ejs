@@ -75,7 +75,7 @@
 <script>
 	window.onload = function () { // Generate participant info
 		$("input[name='sessionname']").val("Session " + Math.floor(Math.random() * 10));
-		$("input[name='data']").val("Participant " + Math.floor(Math.random() * 100));
+		$("input[name='data']").val("<%= user %>");
 	}
 </script>
 
