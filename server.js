@@ -44,18 +44,28 @@ https.createServer(options, app).listen(5000);
 
 // Mock database
 var users = [{
-    user: "xpert",
-    pass: "pass",
-    role: OpenViduRole.MODERATOR
-}, {
-    user: "customer1",
-    pass: "pass",
-    role: OpenViduRole.PUBLISHER
-}, {
-    user: "customer2",
-    pass: "pass",
-    role: OpenViduRole.PUBLISHER
-}];
+        user: "xpert",
+        name: "Kevin",
+        pass: "pass",
+        role: OpenViduRole.MODERATOR
+    }, {
+        user: "customer1",
+        name: "Sabine",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, {
+        user: "customer2",
+        name: "Marc",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    },
+    {
+        user: "customer3",
+        name: "Jenny",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }
+];
 
 // Environment variable: URL where our OpenVidu server is listening
 var OPENVIDU_URL = process.argv[2];
@@ -104,9 +114,11 @@ function dashboardController(req, res) {
     // Check if the user is already logged in
     if (isLogged(req.session)) {
         // User is already logged. Immediately return dashboard
-        user = req.session.loggedUser;
+        userName = req.session.loggedUser;
+        user = getUser(userName);
         res.render('dashboard.ejs', {
-            user: user
+            user: user.user,
+            name: user.name,
         });
     } else {
         // User wasn't logged and wants to
@@ -121,8 +133,10 @@ function dashboardController(req, res) {
             // Value stored in req.session allows us to identify the user in future requests
             console.log("'" + user + "' has logged in");
             req.session.loggedUser = user;
+            user = getUser(user);
             res.render('dashboard.ejs', {
-                user: user
+                user: user.user,
+                name: user.name,
             });
         } else { // Wrong user-pass
             // Invalidate session and return index template
@@ -148,7 +162,9 @@ app.post('/session', (req, res) => {
 
         // Optional data to be passed to other users when this user connects to the video-call
         // In this case, a JSON with the value we stored in the req.session object on login
-        var serverData = JSON.stringify({ serverData: req.session.loggedUser });
+        var serverData = JSON.stringify({
+            serverData: req.session.loggedUser
+        });
 
         console.log("Getting a token | {sessionName}={" + sessionName + "}");
 
@@ -271,6 +287,10 @@ function login(user, pass) {
     return (user != null &&
         pass != null &&
         users.find(u => (u.user === user) && (u.pass === pass)));
+}
+
+function getUser(userName){
+    return users.find(u => (u.user === userName));
 }
 
 function isLogged(session) {

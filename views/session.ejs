@@ -3,17 +3,26 @@
 <head>
 	<title>openvidu-mvc-node</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"></meta>
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"></link>
+	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+	</meta>
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+	</link>
 
 	<!-- Bootstrap -->
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</link>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+	</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</link>
 	<!-- Bootstrap -->
 
-	<link rel="styleSheet" href="style.css" type="text/css" media="screen"></link>
+	<link rel="styleSheet" href="style.css" type="text/css" media="screen">
+	</link>
 	<script src="openvidu-browser-2.12.0.js"></script>
 </head>
 
@@ -22,15 +31,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/">
-					<img class="demo-logo" src="images/openvidu_vert_white_bg_trans_cropped.png" /> MVC Node</a>
-				<a class="navbar-brand nav-icon" href="https://github.com/OpenVidu/openvidu-tutorials/tree/master/openvidu-mvc-node" title="GitHub Repository"
-				 target="_blank">
-					<i class="fa fa-github" aria-hidden="true"></i>
-				</a>
-				<a class="navbar-brand nav-icon" href="http://www.openvidu.io/docs/tutorials/openvidu-mvc-node/" title="Documentation" target="_blank">
-					<i class="fa fa-book" aria-hidden="true"></i>
-				</a>
+				<a class="navbar-brand" href="/"> Streaming</a>
 			</div>
 		</div>
 	</nav>
@@ -43,7 +44,8 @@
 					<form action="/leave-session" method="post">
 						<input type="hidden" name="sessionname" value="<%= sessionName %>"></input>
 						<input type="hidden" name="token" value="<%= token %>"></input>
-						<button id="buttonLeaveSession" class="btn btn-large btn-danger" type="submit" onclick="leaveSession()">
+						<button id="buttonLeaveSession" class="btn btn-large btn-danger" type="submit"
+							onclick="leaveSession()">
 							Leave session</button>
 					</form>
 				</div>
@@ -59,10 +61,7 @@
 
 	<footer class="footer">
 		<div class="container">
-			<div class="text-muted">OpenVidu © 2017</div>
-			<a href="http://www.openvidu.io/" target="_blank">
-				<img class="openvidu-logo" src="images/openvidu_globe_bg_transp_cropped.png" />
-			</a>
+			<div class="text-muted">hennnsevents © 2020</div>
 		</div>
 	</footer>
 
@@ -89,14 +88,20 @@
 
 	// On every new Stream received...
 	session.on('streamCreated', (event) => {
-
+		serverData = JSON.parse(event.stream.connection.data.split('%/%')[1]).serverData;
+		//var uName = event.stream.connection.userName;
+		
+		if(!isModerator()){
+			if( !(serverData.includes('xpert'))){
+				return;
+			}
+		}
 		// Subscribe to the Stream to receive it
 		// HTML video will be appended to element with 'video-container' id
 		var subscriber = session.subscribe(event.stream, 'video-container');
 
 		// When the HTML video has been appended to DOM...
 		subscriber.on('videoElementCreated', (event) => {
-
 			// Add a new HTML element for the user's name and nickname over its video
 			appendUserData(event.element, subscriber.stream.connection);
 		});
@@ -111,7 +116,9 @@
 	// --- 4) Connect to the session passing the retrieved token and some more data from
 	//        the client (in this case a JSON with the nickname chosen by the user) ---
 
-	session.connect(token, { clientData: nickName })
+	session.connect(token, {
+			clientData: nickName
+		})
 		.then(() => {
 
 			// --- 5) Set page layout for active call ---
@@ -125,19 +132,19 @@
 			// trying to publish its stream. Even if someone modified the client's code and
 			// published the stream, it wouldn't work if the token sent in Session.connect
 			// method is not recognized as 'PUBLIHSER' role by OpenVidu Server
-			if (isPublisher()) {
+			if (isModerator()) {
 
 				// --- 6) Get your own camera stream ---
 
 				var publisher = OV.initPublisher('video-container', {
 					audioSource: undefined, // The source of audio. If undefined default microphone
 					videoSource: undefined, // The source of video. If undefined default webcam
-					publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
-					publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-					resolution: '640x480',  // The resolution of your video
-					frameRate: 30,			// The frame rate of your video
-					insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
-					mirror: false       	// Whether to mirror your local video or not
+					publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+					publishVideo: true, // Whether you want to start publishing with your video enabled or not
+					resolution: '640x480', // The resolution of your video
+					frameRate: 30, // The frame rate of your video
+					insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+					mirror: false // Whether to mirror your local video or not
 				});
 
 				// --- 7) Specify the actions when events take place in our publisher ---
@@ -160,8 +167,32 @@
 				session.publish(publisher);
 
 			} else {
-				console.warn('You don\'t have permissions to publish');
-				initMainVideoThumbnail(); // Show SUBSCRIBER message in main video
+
+				var publisher = OV.initPublisher('video-container', {
+					audioSource: undefined, // The source of audio. If undefined default microphone
+					videoSource: undefined, // The source of video. If undefined default webcam
+					publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+					publishVideo: true, // Whether you want to start publishing with your video enabled or not
+					resolution: '640x480', // The resolution of your video
+					frameRate: 30, // The frame rate of your video
+					insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+					mirror: false // Whether to mirror your local video or not
+				});
+
+				// --- 7) Specify the actions when events take place in our publisher ---
+				// When our HTML video has been added to DOM...
+				publisher.on('videoElementCreated', (event) => {
+					// Init the main video with ours and append our data
+					var userData = {
+						nickName: nickName,
+						userName: userName
+					};
+					initMainVideo(event.element, userData);
+					appendUserData(event.element, userData);
+					$(event.element).prop('muted', true); // Mute local video
+				});
+				// --- 8) Publish your stream ---
+				session.publish(publisher);
 			}
 		})
 		.catch(error => {
@@ -191,7 +222,11 @@
 		var dataNode = document.createElement('div');
 		dataNode.className = "data-node";
 		dataNode.id = "data-" + nodeId;
-		dataNode.innerHTML = '<p class="nickName">' + clientData + '</p><p class="userName">' + serverData + '</p>';
+		if(serverData.includes('xpert')){
+			dataNode.innerHTML = '<p class="nickName">' + clientData + '</p><p class="userName">Trainer</p>';
+		}else {
+			dataNode.innerHTML = '<p class="nickName">' + clientData + '</p><p class="userName"></p>';
+		}
 		videoElement.parentNode.insertBefore(dataNode, videoElement.nextSibling);
 		addClickListener(videoElement, clientData, serverData);
 	}
@@ -220,8 +255,13 @@
 			var mainVideo = $('#main-video video').get(0);
 			if (mainVideo.srcObject !== videoElement.srcObject) {
 				$('#main-video').fadeOut("fast", () => {
-					$('#main-video p.nickName').html(clientData);
-					$('#main-video p.userName').html(serverData);
+					if(serverData.includes('xpert')){
+						$('#main-video p.nickName').html(clientData);
+						$('#main-video p.userName').html("Trainer");
+					}else {
+						$('#main-video p.nickName').html(clientData);
+						$('#main-video p.userName').html("");
+					}
 					mainVideo.srcObject = videoElement.srcObject;
 					$('#main-video').fadeIn("fast");
 				});
@@ -231,8 +271,14 @@
 
 	function initMainVideo(videoElement, userData) {
 		$('#main-video video').get(0).srcObject = videoElement.srcObject;
-		$('#main-video p.nickName').html(userData.nickName);
-		$('#main-video p.userName').html(userData.userName);
+
+		if(userData.userName.includes('xpert')){
+			$('#main-video p.nickName').html(userData.nickName);
+			$('#main-video p.userName').html("Trainer");
+		}else {
+			$('#main-video p.nickName').html(userData.nickName);
+			$('#main-video p.userName').html("");
+		}
 		$('#main-video video').prop('muted', true);
 	}
 
@@ -240,7 +286,7 @@
 		$('#main-video video').css("background", "url('images/subscriber-msg.jpg') round");
 	}
 
-	function isPublisher() {
+	function isModerator() {
 		return userName.includes('xpert');
 	}
 </script>

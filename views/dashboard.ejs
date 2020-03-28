@@ -24,10 +24,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/"><img class="demo-logo" src="images/openvidu_vert_white_bg_trans_cropped.png"/> MVC Node</a>
-				<a class="navbar-brand nav-icon" href="https://github.com/OpenVidu/openvidu-tutorials/tree/master/openvidu-mvc-node" title="GitHub Repository"
-				    target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
-				<a class="navbar-brand nav-icon" href="http://www.openvidu.io/docs/tutorials/openvidu-mvc-node/" title="Documentation" target="_blank"><i class="fa fa-book" aria-hidden="true"></i></a>
+				<a class="navbar-brand" href="/"> Streaming</a>
 			</div>
 		</div>
 	</nav>
@@ -35,17 +32,16 @@
 	<div id="main-container" class="container">
 		<div id="logged">
 			<div id="join" class="vertical-center">
-				<div id="img-div"><img src="images/openvidu_grey_bg_transp_cropped.png" /></div>
 				<div id="join-dialog" class="jumbotron">
-					<h1>Join a video session</h1>
+					<h1>Join your Training Session</h1>
 					<form class="form-group" action="/session" method="post">
 						<p>
-							<label>Participant</label>
+							<label>Name</label>
 							<input class="form-control" type="text" name="data" required="true"></input>
 						</p>
 						<p>
 							<label>Session</label>
-							<input class="form-control" type="text" name="sessionname" required="true"></input>
+							<input class="form-control" readonly="readonly" type="text" name="sessionname" required="true"></input>
 						</p>
 						<p class="text-center">
 							<button class="btn btn-lg btn-success" type="submit">Join!</button>
@@ -65,8 +61,7 @@
 
 	<footer class="footer">
 		<div class="container">
-			<div class="text-muted">OpenVidu © 2017</div>
-			<a href="http://www.openvidu.io/" target="_blank"><img class="openvidu-logo" src="images/openvidu_globe_bg_transp_cropped.png"/></a>
+			<div class="text-muted">hennsevents © 2020</div>
 		</div>
 	</footer>
 
@@ -74,8 +69,8 @@
 
 <script>
 	window.onload = function () { // Generate participant info
-		$("input[name='sessionname']").val("Session " + Math.floor(Math.random() * 10));
-		$("input[name='data']").val("<%= user %>");
+		$("input[name='sessionname']").val("Training Session");
+		$("input[name='data']").val("<%= name %>");
 	}
 </script>
 
