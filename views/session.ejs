@@ -95,7 +95,7 @@
 			if(!(serverData.includes('xpert'))){
 				subscriber.subscribeToAudio(true);
 				subscriber.subscribeToVideo(false);
-				//return;
+				return;
 			}
 		}
 		// Subscribe to the Stream to receive it
@@ -142,8 +142,8 @@
 
 					// --- 6) Get your own camera stream ---			
 					var publisher = OV.initPublisher('video-container', {
-						audioSource: audioTrack, // The source of audio. If undefined default microphone
-						videoSource: videoTrack, // The source of video. If undefined default webcam
+						audioSource: undefined, // The source of audio. If undefined default microphone
+						videoSource: undefined, // The source of video. If undefined default webcam
 						publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
 						publishVideo: true, // Whether you want to start publishing with your video enabled or not
 						resolution: '1280x720', // The resolution of your video
