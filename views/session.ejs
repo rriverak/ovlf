@@ -104,6 +104,7 @@
 			}*/
 			if(!isModerator()){
 				if(!serverData.includes('xpert') && serverData !== userName){
+					console.warn("subscribeToVideo => " + serverData);
 					// subscriber.subscribeToAudio(true);
 					subscriber.subscribeToVideo(false);
 				}
