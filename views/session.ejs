@@ -74,9 +74,6 @@
 	var token = <%- JSON.stringify(token) %>;
 	var nickName = <%- JSON.stringify(nickName) %>;
 	var userName = <%- JSON.stringify(userName) %>;
-
-	console.warn('Request of TOKEN gone WELL (TOKEN:' + token + ')');
-
 	// --- 1) Get an OpenVidu object ---
 
 	OV = new OpenVidu();
@@ -96,6 +93,7 @@
 					allowSubscribeVideo = false;
 				}
 		}
+		console.log("Subscribe => " + serverData);
 		var subscriber = session.subscribe(event.stream, 'video-container',{ "subscribeToVideo": allowSubscribeVideo, "subscribeToAudio": true });
 
 		// Subscribe to the Stream to receive it
