@@ -103,8 +103,8 @@
 				//audioMixer.appendStreams([subscriber.stream.getMediaStream()])
 			}*/
 			if(!isModerator()){
-				if(!(serverData.includes('xpert') && serverData === userName)){
-					subscriber.subscribeToAudio(true);
+				if(!serverData.includes('xpert') && serverData !== userName) ){
+					// subscriber.subscribeToAudio(true);
 					subscriber.subscribeToVideo(false);
 				}
 			}
