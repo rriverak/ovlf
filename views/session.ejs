@@ -91,13 +91,7 @@
 	session.on('streamCreated', (event) => {
 		serverData = JSON.parse(event.stream.connection.data.split('%/%')[1]).serverData;
 		var subscriber = session.subscribe(event.stream, 'video-container');
-		if(!isModerator()){
-			if(!(serverData.includes('xpert'))){
-				subscriber.subscribeToAudio(true);
-				subscriber.subscribeToVideo(false);
-				return;
-			}
-		}
+
 		// Subscribe to the Stream to receive it
 		// HTML video will be appended to element with 'video-container' id
 		//var subscriber = session.subscribe(event.stream, 'video-container');
@@ -108,7 +102,12 @@
 			/*if(isModerator() && userName !== serverData && audioMixer != null){
 				//audioMixer.appendStreams([subscriber.stream.getMediaStream()])
 			}*/
-
+			if(!isModerator()){
+				if(!(serverData.includes('xpert') && serverData === userName)){
+					subscriber.subscribeToAudio(true);
+					subscriber.subscribeToVideo(false);
+				}
+			}
 		});
 	});
 
