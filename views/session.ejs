@@ -92,7 +92,7 @@
 		serverData = JSON.parse(event.stream.connection.data.split('%/%')[1]).serverData;
 		var allowSubscribeVideo = true;
 		if(!isModerator()){
-				if(!serverData.includes('xpert') && serverData !== userName){
+				if(!serverData.includes('xpert')){
 					allowSubscribeVideo = false;
 				}
 		}
