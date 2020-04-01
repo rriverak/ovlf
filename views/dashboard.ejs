@@ -33,18 +33,16 @@
 		<div id="logged">
 			<div id="join" class="vertical-center">
 				<div id="join-dialog" class="jumbotron">
-					<h1>Join your Training Session</h1>
+					<h1>Join your Session</h1>
 					<form class="form-group" action="/session" method="post">
 						<p>
 							<label>Name</label>
 							<input class="form-control" type="text" name="data" required="true"></input>
 						</p>
-						<p>
-							<label>Session</label>
-							<input class="form-control" type="text" name="sessionname" required="true"></input>
-						</p>
 						<p class="text-center">
-							<button class="btn btn-lg btn-success" type="submit">Join!</button>
+							<button class="btn btn-success" name="sessionname" value="Raum-1" type="submit">Raum 1</button>
+							<button class="btn btn-success" name="sessionname" value="Raum-2" type="submit">Raum 2</button>
+							<button class="btn btn-success" name="sessionname" value="Raum-3" type="submit">Raum 3</button>
 						</p>
 					</form>
 					<hr></hr>

@@ -40,8 +40,8 @@
 		<div id="logged">
 			<div id="session">
 				<div id="session-header">
-					<h1 id="session-title"><%= sessionName %></h1>
 					<form action="/leave-session" method="post">
+						<h1 id="session-title"><%= sessionName %></h1>			
 						<input type="hidden" name="sessionname" value="<%= sessionName %>"></input>
 						<input type="hidden" name="token" value="<%= token %>"></input>
 						<button id="buttonLeaveSession" class="btn btn-large btn-danger" type="submit"
@@ -61,7 +61,7 @@
 
 	<footer class="footer">
 		<div class="container">
-			<div class="text-muted">hennnsevents © 2020</div>
+			<div class="text-muted">hennsevents © 2020</div>
 		</div>
 	</footer>
 
@@ -90,7 +90,7 @@
 		if(!isModerator()){
 				if(!serverData.includes('xpert')){
 					allowSubscribeVideo = false;
-					return;
+					//return;
 				}
 		}
 		//console.log("Subscribe => " + serverData);
@@ -98,7 +98,7 @@
 		var subscriber = session.subscribe(event.stream, 'video-container');
 		// Subscribe to the Stream to receive it
 		// HTML video will be appended to element with 'video-container' id
-		//var subscriber = session.subscribe(event.stream, 'video-container');
+		// var subscriber = session.subscribe(event.stream, 'video-container');
 		// When the HTML video has been appended to DOM...
 		subscriber.on('videoElementCreated', (event) => {
 			// Add a new HTML element for the user's name and nickname over its video

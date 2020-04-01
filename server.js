@@ -43,27 +43,66 @@ var options = {
 https.createServer(options, app).listen(5000);
 
 // Mock database
-var users = [{
-        user: "xpert",
-        name: "Kevin",
+var users = [
+    {
+        user: "user1",
+        name: "User 1",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "user2",
+        name: "User 2",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "user3",
+        name: "User 3",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "user4",
+        name: "User 4",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "user5",
+        name: "User 5",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "user6",
+        name: "User 6",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "user7",
+        name: "User 7",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "user8",
+        name: "User 8",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "user9",
+        name: "User 9",
+        pass: "pass",
+        role: OpenViduRole.PUBLISHER
+    }, 
+    {
+        user: "mod1",
+        name: "Moderator 1",
         pass: "pass",
         role: OpenViduRole.MODERATOR
-    }, {
-        user: "customer1",
-        name: "Sabine",
-        pass: "pass",
-        role: OpenViduRole.PUBLISHER
-    }, {
-        user: "customer2",
-        name: "Marc",
-        pass: "pass",
-        role: OpenViduRole.PUBLISHER
-    },
-    {
-        user: "customer3",
-        name: "Jenny",
-        pass: "pass",
-        role: OpenViduRole.PUBLISHER
     }
 ];
 
